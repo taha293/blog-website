@@ -15,7 +15,7 @@ function BlogShow({ params }: props) {
   const ref = useRef<HTMLInputElement>(null)
 
   const [comments, setComments] = useState<string[]>([])
-  const [data, setData] = useState<{ heading: string; blog: any; date: string; image: string; slug: string } | null>(null);
+  const [data, setData] = useState<{ heading: string; blog: []; date: string; image: string; slug: string } | null>(null);
   const [loading, setLoading] = useState(true);
   console.log(ref);
 

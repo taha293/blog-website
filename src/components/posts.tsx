@@ -24,7 +24,7 @@ function Posts(){
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-between py-10 sm:py-12 lg:py-16">
                 {
                 isLoading?(<div><p className="dark:text-white text-[#2F353B] flex lg:justify-end justify-center items-center">Loading.......</p></div>) : ((blogData as {id:string, heading:string, date:string, image:string, slug:string}[]).map((data)=> 
-                <BlogsCard id={data.id} heading={data.heading} date={data.date} img={data.image} slug={data.slug}/>
+                <BlogsCard key={data.id} id={data.id} heading={data.heading} date={data.date} img={data.image} slug={data.slug}/>
                 ) )
             }
             </div>

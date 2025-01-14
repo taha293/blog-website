@@ -1,3 +1,8 @@
+type Rule = {
+  required: () => Rule;
+  error: (message: string) => Rule;
+};
+
 const blogPost = {
     name: 'blogs',
     type: 'document',
@@ -7,12 +12,12 @@ const blogPost = {
             name: 'heading',
             type: 'string',
             title: 'Title',
-            validation: (Rule:any) => Rule.required().error('This field is required!'),
+            validation: (Rule:Rule) => Rule.required().error('This field is required!'),
         },{
             title: 'Slug',
             name: 'slug',
             type: 'slug',
-            validation: (Rule:any) => Rule.required().error('This field is required!'),
+            validation: (Rule:Rule) => Rule.required().error('This field is required!'),
             options: {
               source: 'heading',
               maxLength: 200, 
@@ -25,7 +30,7 @@ const blogPost = {
             name: 'blog',
             title: 'blog',
             type: 'array',
-            validation: (Rule:any) => Rule.required().error('This field is required!'),
+            validation: (Rule:Rule) => Rule.required().error('This field is required!'),
             of: [
               {
                 type: 'block',
@@ -38,12 +43,12 @@ const blogPost = {
             options: {
                 hotspot: true,
               },
-            validation: (Rule:any) => Rule.required().error('This field is required!'),
+            validation: (Rule:Rule) => Rule.required().error('This field is required!'),
         },{
             name: 'date',
             type: 'string',
             title: 'Date',
-            validation: (Rule:any) => Rule.required().error('This field is required!'),
+            validation: (Rule:Rule) => Rule.required().error('This field is required!'),
         }
     ]
 }
