@@ -1,8 +1,7 @@
 'use client'
 import Link from "next/link"
 import Image from "next/image"
-import { useEffect, useState } from "react"
-import { client } from "@/sanity/lib/client"
+
 
 interface blogsCard {
     id:string,
@@ -14,19 +13,6 @@ interface blogsCard {
 
 function BlogsCard(props:blogsCard) {
     const {id,heading,date,img,slug} = props
-    const [blogData, setBlogData] = useState([])
-    useEffect(() => {
-        async function dataFetch() {
-            const blogs = await client.fetch('*[_type == "blogs"]{heading,"id":_id,blog,date,"imageUrl": image.asset->url}')
-            setBlogData(blogs)
-
-        }
-        dataFetch()
-
-
-
-
-    }, [])
     return (
         <div className="flex" key={id}>
             <div>

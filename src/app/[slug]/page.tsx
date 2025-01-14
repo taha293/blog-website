@@ -15,7 +15,7 @@ function BlogShow({ params }: props) {
   const ref = useRef<HTMLInputElement>(null)
 
   const [comments, setComments] = useState<string[]>([])
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<{ heading: string; blog: any; date: string; image: string; slug: string } | null>(null);
   const [loading, setLoading] = useState(true);
   console.log(ref);
 
@@ -48,20 +48,21 @@ function BlogShow({ params }: props) {
       setData(blogs[0])
     }
     dataFetch()
-  }, [])
+  }, [params.slug])
 
   if (!data) {
     if (loading) {
       return <div className="dark:text-[#f5f5f5] flex w-full h-[72vh] justify-center items-center gap-4 flex-col text-2xl" >Loading...</div>;
     } else if (!loading) {
       return <div className="flex w-full h-[72vh] justify-center items-center gap-4 flex-col">
-        <h1 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[34px] font-[500] text-[#1087FF] text-center">Blog not Found <br />or <br />There's an internet issue</h1>
+        <h1 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[34px] font-[500] text-[#1087FF] text-center">Blog not Found <br />or <br />There&#39;s an internet issue</h1>
         <div className="flex w-full justify-center items-center ">
           <Link href='/' className="px-4 py-2 bg-[#1087FF]  rounded-md text-white hover:bg-[#666666] my-4 text-[14px] sm:text-[16px] lg:text-[18px]"> Go to Home </Link>
         </div>
       </div>
     }
   }
+  else if(data){
   return (
     <div className="px-4 sm:px-6 md:px-7 lg:px-8 xl:px-10 py-8 md:py-10 lg:py-12 xl:py-14 dark:text-[#f5f5f5]">
       <PortableText
@@ -69,7 +70,7 @@ function BlogShow({ params }: props) {
         components={{
           types: {
             image: ({ value }) => (
-              <img src={value.asset.url} alt={value.alt || "Blog Image"} />
+              <Image src={value.asset.url} alt={value.alt || "Blog Image"} width={500} height={500} />
             ),
           },
           block: {
@@ -93,17 +94,14 @@ function BlogShow({ params }: props) {
       </div>
       <div>
         {
-          comments.map((c) => {
+          comments.map((c,index) => {
             return (
-              <div className="mt-3">
+              <div className="mt-3" key={index}>
 
                 <article className="sm:px-2 md:px-4 lg:px-6 xl:px-8 py-2 text-base bg-transparent rounded-lg">
                   <footer className="flex justify-between items-center mb-2">
                     <div className="flex items-center justify-between w-full sm:w-auto">
-                      <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img
-                        className="mr-2 w-6 h-6 rounded-full"
-                        src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                        alt="Michael Gough" />Anonymous</p>
+                      <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><Image className="mr-2 w-6 h-6 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Michael Gough" width={24} height={24} />Anonymous</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400"><p>Just Now</p></p>
                     </div>
                     
@@ -118,5 +116,6 @@ function BlogShow({ params }: props) {
       </div>
     </div>
   )
+}
 }
 export default BlogShow
